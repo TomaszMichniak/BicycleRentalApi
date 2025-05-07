@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Domain.Interfaces;
 using Infrastructure.Database;
+using Infrastructure.Repositories;
 using Infrastructure.Seeder;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -14,9 +17,16 @@ namespace Infrastructure.Extensions
     {
         public static void AddInfrastructures(this IServiceCollection Services, IConfiguration configuration)
         {
-            Services.AddDbContext<BicycleRentalContext>();
-          //  services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-          //  services.AddScoped<IApartmentRepository, ApartmentRepository>();
+
+            var connectionString = configuration.GetConnectionString("BicycleRentalDb");
+            Services.AddDbContext<BicycleRentalDbContext>(options =>
+                options.UseSqlServer(connectionString)
+                    .EnableSensitiveDataLogging());
+            Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            Services.AddScoped<IBicycleRepository, BicycleRepository>();
+            Services.AddScoped<IReservationRepository, ReservationRepository>();
+            Services.AddScoped<IPaymentRepository, PaymentRepository>();
+            Services.AddScoped<IAddressRepository, AddressRepository>();
             Services.AddScoped<BicycleRentalApiSeeder>();
             //services.AddScoped(typeof(ISpecification<>), typeof(Specification<>));
         }

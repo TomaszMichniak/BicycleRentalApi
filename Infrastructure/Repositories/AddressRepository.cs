@@ -11,7 +11,7 @@ namespace Infrastructure.Repositories
 {
     public class AddressRepository: GenericRepository<Address>, IAddressRepository
     {
-        public AddressRepository(BicycleRentalContext dbContext) : base(dbContext)
+        public AddressRepository(BicycleRentalDbContext dbContext) : base(dbContext)
         {
         }
     }

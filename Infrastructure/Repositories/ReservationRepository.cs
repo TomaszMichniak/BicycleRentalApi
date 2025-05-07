@@ -11,7 +11,7 @@ namespace Infrastructure.Repositories
 {
     public class ReservationRepository: GenericRepository<Reservation>, IReservationRepository
     {
-        public ReservationRepository(BicycleRentalContext dbContext) : base(dbContext)
+        public ReservationRepository(BicycleRentalDbContext dbContext) : base(dbContext)
         {
         }
     }

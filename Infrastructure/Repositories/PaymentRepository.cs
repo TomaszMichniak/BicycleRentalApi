@@ -11,7 +11,7 @@ namespace Infrastructure.Repositories
 {
     public class PaymentRepository : GenericRepository<Payment>, IPaymentRepository
     {
-        public PaymentRepository(BicycleRentalContext dbContext) : base(dbContext)
+        public PaymentRepository(BicycleRentalDbContext dbContext) : base(dbContext)
         {
         }
     }

@@ -13,6 +13,9 @@ namespace Domain.Interfaces
         public Task<T> DeleteAsync(T entity);
         public Task<T?> GetByIdAsync(Guid id);
         public Task<IEnumerable<T>> GetAllAsync();
+        public Task<bool> IsExist(Guid id);
+        public Task<IEnumerable<T>> FindBySpecification(ISpecification<T> specification = null);
+        public IQueryable<T> FindBySpecificationQuery(ISpecification<T> specification = null);
 
     }
 }

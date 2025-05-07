@@ -10,10 +10,10 @@ namespace Infrastructure.Seeder
 {
     public class BicycleRentalApiSeeder
     {
-        private readonly BicycleRentalContext _dbContext;
+        private readonly BicycleRentalDbContext _dbContext;
       //  private readonly IPasswordHasher<User> _passwordHasher;
 
-        public BicycleRentalApiSeeder(BicycleRentalContext dbContext
+        public BicycleRentalApiSeeder(BicycleRentalDbContext dbContext
             //,IPasswordHasher<User> passwordHasher
             )
         {

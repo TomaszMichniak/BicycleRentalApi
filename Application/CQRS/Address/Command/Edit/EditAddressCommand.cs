@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MediatR;
 
-namespace Infrastructure.Configurations
+namespace Application.CQRS.Address.Command.Edit
 {
-    internal class DatabaseConfiguration
+    public class EditAddressCommand : AddressDto, IRequest<AddressDto>
     {
     }
 }

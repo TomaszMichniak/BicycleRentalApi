@@ -11,7 +11,7 @@ namespace Infrastructure.Repositories
 {
     public class BicycleRepository : GenericRepository<Bicycle>, IBicycleRepository
     {
-        public BicycleRepository(BicycleRentalContext dbContext) : base(dbContext)
+        public BicycleRepository(BicycleRentalDbContext dbContext) : base(dbContext)
         {
         }
     }

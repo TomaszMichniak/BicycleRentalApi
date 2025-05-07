@@ -5,15 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using Domain.Interfaces;
 using Infrastructure.Database;
+using Infrastructure.Specification;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        protected readonly BicycleRentalContext _dbContext;
+        protected readonly BicycleRentalDbContext _dbContext;
         private readonly DbSet<T> _dbSet;
-        public GenericRepository(BicycleRentalContext dbContext)
+        public GenericRepository(BicycleRentalDbContext dbContext)
         {
             _dbContext = dbContext;
             _dbSet = _dbContext.Set<T>();
@@ -43,6 +44,22 @@ namespace Infrastructure.Repositories
             _dbSet.Update(entity);
             await _dbContext.SaveChangesAsync();
             return entity;
+        }
+        public async Task<bool> IsExist(Guid id)
+        {
+            return await _dbSet.AsNoTracking().AnyAsync(e => EF.Property<Guid>(e, "Id") == id);
+        }
+        public async Task<IEnumerable<T>> FindBySpecification(ISpecification<T> specification = null)
+        {
+            return await ApplySpecification(specification).ToListAsync();
+        }
+        public IQueryable<T> FindBySpecificationQuery(ISpecification<T> specification = null)
+        {
+            return ApplySpecification(specification);
+        }
+        private IQueryable<T> ApplySpecification(ISpecification<T> spec)
+        {
+            return SpecificationEvaluator<T>.GetQuery(_dbContext.Set<T>().AsQueryable(), spec);
         }
     }
 }
