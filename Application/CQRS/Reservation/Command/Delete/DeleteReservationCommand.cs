@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Application.CQRS.GenericHandlers;
+using Domain.Entities;
 using MediatR;
 
 namespace Application.CQRS.Reservation.Command.Delete

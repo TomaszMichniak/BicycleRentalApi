@@ -7,6 +7,8 @@ using Application.CQRS.Address;
 using Application.CQRS.Address.Command.Create;
 using Application.CQRS.Bicycle;
 using Application.CQRS.Bicycle.Command.Create;
+using Application.CQRS.Guest;
+using Application.CQRS.Guest.Command.Create;
 using Application.CQRS.Reservation;
 using Application.CQRS.Reservation.Command.Create;
 using AutoMapper;
@@ -23,13 +25,15 @@ namespace Application.Mapping
             //Bicycle
             CreateMap<Bicycle, BicycleDto>().ReverseMap();
             CreateMap<CreateBicycleCommand, Bicycle>().ReverseMap();
-            //  CreateMap<Payment, PaymentDto>().ReverseMap();
-
+            //Address
             CreateMap<Address, AddressDto>().ReverseMap();
             CreateMap<CreateAddressCommand, Address>().ReverseMap();
-
+            //Reservation
             CreateMap<Reservation, ReservationDto>().ReverseMap();
             CreateMap<CreateReservationCommand, Reservation>().ReverseMap();
+            //Guest
+            CreateMap<Guest, GuestDto>().ReverseMap();
+            CreateMap<CreateGuestCommand, Guest>().ReverseMap();
         }
     }
 }

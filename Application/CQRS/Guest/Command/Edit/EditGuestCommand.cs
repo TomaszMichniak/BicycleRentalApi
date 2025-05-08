@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Domain.Entities;
 using MediatR;
 
-namespace Application.CQRS.Address.Command.Edit
+namespace Application.CQRS.Guest.Command.Edit
 {
-    public class EditAddressCommand : AddressDto, IRequest<AddressDto>, IHasId
+    public class EditGuestCommand : GuestDto,IRequest<GuestDto>, IHasId
     {
     }
 }

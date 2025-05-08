@@ -1,11 +1,9 @@
 ﻿using MediatR;
 using Domain.Interfaces;
+using Domain.Entities;
 namespace Application.CQRS.GenericHandlers
 {
-    public interface IHasId
-    {
-        Guid Id { get; }
-    }
+    
     public class GenericDeleteCommandHandler<TCommand, TEntity>
         : IRequestHandler<TCommand>
         where TCommand : IRequest, IHasId

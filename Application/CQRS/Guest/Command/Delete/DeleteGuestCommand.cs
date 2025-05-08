@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Application.CQRS.GenericHandlers;
 using Domain.Entities;
 using MediatR;
 
-namespace Application.CQRS.Address.Command.Delete
+namespace Application.CQRS.Guest.Command.Delete
 {
-    public class DeleteAddressCommand : IRequest, IHasId
+    public class DeleteGuestCommand : IRequest, IHasId
     {
         public Guid Id { get; set; }
-        public DeleteAddressCommand(Guid id)
+
+        public DeleteGuestCommand(Guid id)
         {
             Id = id;
         }

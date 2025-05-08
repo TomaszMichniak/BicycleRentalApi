@@ -1,7 +1,8 @@
-﻿using Application.CQRS.Address.Command.Create;
-using Application.CQRS.Bicycle.Command.Delete;
+﻿using Application.CQRS.Bicycle.Query.GetBySpecification;
 using Application.CQRS.Reservation.Command.Create;
 using Application.CQRS.Reservation.Command.Delete;
+using Application.CQRS.Reservation.Command.Edit;
+using Application.CQRS.Reservation.Query.GetBySpecification;
 using FluentValidation.Results;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -18,7 +19,13 @@ namespace BicycleRentalApi.Controllers
         {
             _mediator = mediator;
         }
-
+        [HttpGet]
+        [Route("Search")]
+        public async Task<IActionResult> GetBySpecification([FromQuery] GetReservationBySpecificationQuery query)
+        {
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
         [HttpPost]
         // [Authorize(Roles ="admin")]
         public async Task<IActionResult> Create([FromBody] CreateReservationCommand command)
@@ -29,6 +36,17 @@ namespace BicycleRentalApi.Controllers
             {
                 return BadRequest(result.Errors);
             }
+            var data = await _mediator.Send(command);
+            return Ok(data);
+        }
+        [HttpPut]
+        //[Authorize(Roles ="admin")]
+        public async Task<IActionResult> Edit([FromBody] EditReservationCommand command)
+        {
+            EditReservationCommandValidator _validator = new EditReservationCommandValidator();
+            ValidationResult result = await _validator.ValidateAsync(command);
+            if (!result.IsValid)
+                return BadRequest(command);
             var data = await _mediator.Send(command);
             return Ok(data);
         }

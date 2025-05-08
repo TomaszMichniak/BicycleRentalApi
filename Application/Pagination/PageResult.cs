@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Domain.Interfaces;
 
 namespace Application.Pagination
 {
-    public class PageResult<T>
+    public class PageResult<T>:IPagedResult<T>
     {
         public List<T> Items { get; set; } = new List<T>();
         public int PageIndex { get; set; }

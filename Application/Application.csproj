@@ -19,13 +19,7 @@
 
   <ItemGroup>
     <Folder Include="CQRS\Address\Command\" />
-    <Folder Include="CQRS\Address\Query\GetAddressById\" />
-    <Folder Include="CQRS\Address\Query\GetBySpecification\" />
     <Folder Include="CQRS\Bicycle\Command\" />
-    <Folder Include="CQRS\Guest\Command\Create\" />
-    <Folder Include="CQRS\Guest\Command\Delete\" />
-    <Folder Include="CQRS\Guest\Query\" />
-    <Folder Include="CQRS\Reservation\Query\" />
   </ItemGroup>
 
 </Project>

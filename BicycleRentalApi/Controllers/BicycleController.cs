@@ -32,7 +32,7 @@ namespace BicycleRentalApi.Controllers
         }
         [HttpGet]
         [Route("Search")]
-        public async Task<IActionResult> GetBySpecification([FromQuery] GetBySpecificationQuery query)
+        public async Task<IActionResult> GetBySpecification([FromQuery] GetBicycleBySpecificationQuery query)
         {
             var result = await _mediator.Send(query);
             return Ok(result);
@@ -50,17 +50,17 @@ namespace BicycleRentalApi.Controllers
             var data = await _mediator.Send(command);
             return Ok(data);
         }
-        //[HttpPut]
-        ////[Authorize(Roles ="admin")]
-        //public async Task<IActionResult> Edit([FromBody] EditBicycleCommand command)
-        //{
-        //    EditBicycleCommandValidator _validator = new Edit();
-        //    ValidationResult result = await _validator.ValidateAsync(command);
-        //    if (!result.IsValid)
-        //        return BadRequest(command);
-        //    var data = await _mediator.Send(command);
-        //    return Ok(data);
-        //}
+        [HttpPut]
+        //[Authorize(Roles ="admin")]
+        public async Task<IActionResult> Edit([FromBody] EditBicycleCommand command)
+        {
+            EditBicycleCommandValidator _validator = new EditBicycleCommandValidator();
+            ValidationResult result = await _validator.ValidateAsync(command);
+            if (!result.IsValid)
+                return BadRequest(command);
+            var data = await _mediator.Send(command);
+            return Ok(data);
+        }
         [HttpDelete]
         [Route("{id}")]
         // [Authorize(Roles ="admin")]

@@ -5,17 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using FluentValidation;
 
-namespace Application.CQRS.Reservation.Command.Create
+namespace Application.CQRS.Reservation.Command.Edit
 {
-    public class CreateReservationCommandValidator : AbstractValidator<CreateReservationCommand>
+    public class EditReservationCommandValidator: AbstractValidator<EditReservationCommand>
     {
-        //ToDo: Add custom validation for StartDate and EndDate
-        public CreateReservationCommandValidator() {
+        public EditReservationCommandValidator()
+        {
+            RuleFor(x => x.Id).NotNull().NotEmpty();
             RuleFor(x => x.AddressId).NotNull();
             RuleFor(x => x.GuestId).NotNull();
             RuleFor(x => x.StartDate).NotEmpty();
             RuleFor(x => x.EndDate).NotEmpty();
-
         }
     }
 }

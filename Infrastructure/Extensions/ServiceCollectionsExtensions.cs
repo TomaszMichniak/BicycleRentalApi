@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Interfaces;
+using Domain.Specification;
 using Infrastructure.Database;
 using Infrastructure.Repositories;
 using Infrastructure.Seeder;
@@ -28,7 +29,7 @@ namespace Infrastructure.Extensions
             Services.AddScoped<IPaymentRepository, PaymentRepository>();
             Services.AddScoped<IAddressRepository, AddressRepository>();
             Services.AddScoped<BicycleRentalApiSeeder>();
-            //services.AddScoped(typeof(ISpecification<>), typeof(Specification<>));
+            Services.AddScoped(typeof(ISpecification<>), typeof(Specification<>));
         }
     }
 }

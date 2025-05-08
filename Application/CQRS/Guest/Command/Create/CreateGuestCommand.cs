@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MediatR;
 
-namespace Application.CQRS.Guest
+namespace Application.CQRS.Guest.Command.Create
 {
-    public class GuestDto
+    public class CreateGuestCommand : IRequest<GuestDto>
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
         public string FirstName { get; set; } = default!;
         public string LastName { get; set; } = default!;
         public string Email { get; set; } = default!;
