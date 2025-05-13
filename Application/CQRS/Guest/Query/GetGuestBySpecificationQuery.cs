@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Application.DTO.Guest;
 using Domain.Interfaces;
 using Domain.Specification;
 using MediatR;
 
 namespace Application.CQRS.Guest.Query
 {
-    public class GetGuestBySpecificationQuery : IRequest<IPagedResult<GuestDto>>
+    public class GetGuestBySpecificationQuery : IRequest<IPagedResult<GuestDetailsDto>>
     {
         public int PageNumber { get; set; } = 1;
         public int PageSize { get; set; } = 10;

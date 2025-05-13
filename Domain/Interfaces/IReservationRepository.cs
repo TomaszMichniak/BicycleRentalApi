@@ -9,5 +9,6 @@ namespace Domain.Interfaces
 {
     public interface IReservationRepository: IGenericRepository<Reservation>
     {
+        public Task<Reservation> CreateReservationAsync(Reservation reservation);
     }
 }

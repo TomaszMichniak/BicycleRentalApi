@@ -9,5 +9,6 @@ namespace Domain.Interfaces
 {
     public interface IBicycleRepository: IGenericRepository<Bicycle>
     {
+        public Task<List<Bicycle>> GetAvailableBicyclesByDates(DateTime start, DateTime end);
     }
 }

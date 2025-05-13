@@ -1,11 +1,12 @@
-﻿using Domain.Entities;
+﻿using Application.DTO.Bicycle;
+using Domain.Entities;
 using Domain.Interfaces;
 using Domain.Specification;
 using MediatR;
 
 namespace Application.CQRS.Bicycle.Query.GetBySpecification
 {
-    public class GetBicycleBySpecificationQuery : IRequest<IPagedResult<BicycleDto>>
+    public class GetBicycleBySpecificationQuery : IRequest<IPagedResult<BicycleDetailsDto>>
     {
         public int PageNumber { get; set; } = 1;
         public int PageSize { get; set; } = 10;

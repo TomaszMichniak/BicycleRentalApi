@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Application.DTO.Reservation;
 using Domain.Entities;
 using Domain.Interfaces;
 using Domain.Specification;
@@ -10,7 +11,7 @@ using MediatR;
 
 namespace Application.CQRS.Reservation.Query.GetBySpecification
 {
-    public class GetReservationBySpecificationQuery : IRequest<IPagedResult<ReservationDto>>
+    public class GetReservationBySpecificationQuery : IRequest<IPagedResult<ReservationDetailsDto>>
     {
         public int PageNumber { get; set; } = 1;
         public int PageSize { get; set; } = 10;

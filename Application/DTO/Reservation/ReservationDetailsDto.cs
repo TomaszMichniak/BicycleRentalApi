@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Domain.Entities;
 
-namespace Application.CQRS.Reservation
+namespace Application.DTO.Reservation
 {
-    public class ReservationDto
+    public class ReservationDetailsDto
     {
         public Guid Id { get; set; }
         public decimal TotalPrice { get; set; }

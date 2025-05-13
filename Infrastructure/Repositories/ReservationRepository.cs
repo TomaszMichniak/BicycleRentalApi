@@ -11,8 +11,13 @@ namespace Infrastructure.Repositories
 {
     public class ReservationRepository: GenericRepository<Reservation>, IReservationRepository
     {
-        public ReservationRepository(BicycleRentalDbContext dbContext) : base(dbContext)
+        public ReservationRepository(BicycleRentalDbContext _dbContext) : base(_dbContext)
         {
+        }
+
+        public Task<Reservation> CreateReservationAsync(Reservation reservation )
+        {
+            throw new NotImplementedException();
         }
     }
 }

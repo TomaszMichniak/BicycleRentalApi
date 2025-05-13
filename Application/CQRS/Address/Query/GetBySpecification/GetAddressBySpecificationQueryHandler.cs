@@ -3,22 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Application.DTO.Address;
 using Domain.Interfaces;
 using Domain.Specification;
 using MediatR;
 
 namespace Application.CQRS.Address.Query.GetBySpecification
 {
-    public class GetAddressBySpecificationQueryHandler : IRequestHandler<GetAddressBySpecificationQuery, IPagedResult<AddressDto>>
+    public class GetAddressBySpecificationQueryHandler : IRequestHandler<GetAddressBySpecificationQuery, IPagedResult<AddressDetailsDto>>
     {
-        private readonly IGenericSpecificationSearchService<Domain.Entities.Address, AddressDto> _searchService;
+        private readonly IGenericSpecificationSearchService<Domain.Entities.Address, AddressDetailsDto> _searchService;
 
-        public GetAddressBySpecificationQueryHandler(IGenericSpecificationSearchService<Domain.Entities.Address, AddressDto> searchService)
+        public GetAddressBySpecificationQueryHandler(IGenericSpecificationSearchService<Domain.Entities.Address, AddressDetailsDto> searchService)
         {
             _searchService = searchService;
         }
 
-        public async Task<IPagedResult<AddressDto>> Handle(GetAddressBySpecificationQuery request, CancellationToken cancellationToken)
+        public async Task<IPagedResult<AddressDetailsDto>> Handle(GetAddressBySpecificationQuery request, CancellationToken cancellationToken)
         {
             var specification = new Specification<Domain.Entities.Address>();
 

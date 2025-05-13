@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.CQRS.Address
+namespace Application.DTO.Address
 {
-    public class AddressDto
+    public class AddresCreate
     {
-        public Guid Id { get; set; }
         public string Street { get; set; } = default!;
         public string City { get; set; } = default!;
         public string PostalCode { get; set; } = default!;

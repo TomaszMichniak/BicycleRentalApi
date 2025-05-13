@@ -1,5 +1,6 @@
 ﻿using Application.CQRS.Bicycle.Query.GetBySpecification;
 using Application.CQRS.Reservation.Command.Create;
+using Application.CQRS.Reservation.Command.CreateReservationWithTransaction;
 using Application.CQRS.Reservation.Command.Delete;
 using Application.CQRS.Reservation.Command.Edit;
 using Application.CQRS.Reservation.Query.GetBySpecification;
@@ -36,6 +37,20 @@ namespace BicycleRentalApi.Controllers
             {
                 return BadRequest(result.Errors);
             }
+            var data = await _mediator.Send(command);
+            return Ok(data);
+        }
+        [HttpPost]
+        [Route("CreateReservationWithTransaction")]
+        // [Authorize(Roles ="admin")]
+        public async Task<IActionResult> CreateReservationWithTransaction([FromBody] CreateReservationWithTransactionCommand command)
+        {
+            //CreateReservationCommandValidator _validator = new CreateReservationCommandValidator();
+            //ValidationResult result = await _validator.ValidateAsync(command);
+            //if (!result.IsValid)
+            //{
+            //    return BadRequest(result.Errors);
+            //}
             var data = await _mediator.Send(command);
             return Ok(data);
         }

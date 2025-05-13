@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Application.DTO.Bicycle;
 using Application.Pagination;
 using MediatR;
 
 namespace Application.CQRS.Bicycle.Query.GetAll
 {
-    public class GetAllBicycleQuery : IRequest<PageResult<BicycleDto>>
+    public class GetAllBicycleQuery : IRequest<PageResult<BicycleDetailsDto>>
     {
         public PaginationDto Pagination { get; set; }
 

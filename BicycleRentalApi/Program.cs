@@ -12,7 +12,22 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructures(builder.Configuration);
+
+//TODO
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+
 var app = builder.Build();
+//TODO
+app.UseCors("AllowAll");
+
 //Seeder
 var scope = app.Services.CreateScope();
 var seeder = scope.ServiceProvider.GetRequiredService<BicycleRentalApiSeeder>();

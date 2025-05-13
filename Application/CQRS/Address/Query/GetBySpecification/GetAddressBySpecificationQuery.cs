@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Application.DTO.Address;
 using Domain.Interfaces;
 using Domain.Specification;
 using MediatR;
 
 namespace Application.CQRS.Address.Query.GetBySpecification
 {
-    public class GetAddressBySpecificationQuery : IRequest<IPagedResult<AddressDto>>
+    public class GetAddressBySpecificationQuery : IRequest<IPagedResult<AddressDetailsDto>>
     {
         public int PageNumber { get; set; } = 1;
         public int PageSize { get; set; } = 10;

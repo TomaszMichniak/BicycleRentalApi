@@ -2,6 +2,7 @@
 using Application.CQRS.Bicycle.Command.Create;
 using Application.CQRS.Bicycle.Command.Delete;
 using Application.CQRS.Bicycle.Command.Edit;
+using Application.CQRS.Bicycle.Query.AvailableOnDate;
 using Application.CQRS.Bicycle.Query.GetAll;
 using Application.CQRS.Bicycle.Query.GetBySpecification;
 using Application.CQRS.GenericHandlers;
@@ -37,6 +38,14 @@ namespace BicycleRentalApi.Controllers
             var result = await _mediator.Send(query);
             return Ok(result);
         }
+        [HttpGet]
+        [Route("GetAvailableByDate")]
+        public async Task<IActionResult> GetAvailableOnDate([FromQuery] GetAvailableByDateQuery query)
+        {
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+
         [HttpPost]
         // [Authorize(Roles ="admin")]
         public async Task<IActionResult> Create([FromBody] CreateBicycleCommand command)

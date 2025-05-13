@@ -8,19 +8,20 @@ using Application.CQRS.Reservation;
 using Domain.Interfaces;
 using Domain.Specification;
 using MediatR;
+using Application.DTO.Guest;
 
 namespace Application.CQRS.Guest.Query
 {
-    public class GetGuestBySpecificationQueryHandler : IRequestHandler<GetGuestBySpecificationQuery  , IPagedResult<GuestDto>>
+    public class GetGuestBySpecificationQueryHandler : IRequestHandler<GetGuestBySpecificationQuery  , IPagedResult<GuestDetailsDto>>
     {
-        private readonly IGenericSpecificationSearchService<Domain.Entities.Guest, GuestDto> _searchService;
+        private readonly IGenericSpecificationSearchService<Domain.Entities.Guest, GuestDetailsDto> _searchService;
 
-        public GetGuestBySpecificationQueryHandler(IGenericSpecificationSearchService<Domain.Entities.Guest, GuestDto> genericSpecificationSearchService)
+        public GetGuestBySpecificationQueryHandler(IGenericSpecificationSearchService<Domain.Entities.Guest, GuestDetailsDto> genericSpecificationSearchService)
         {
             _searchService = genericSpecificationSearchService;
         }
 
-        public async Task<IPagedResult<GuestDto>> Handle(GetGuestBySpecificationQuery request, CancellationToken cancellationToken)
+        public async Task<IPagedResult<GuestDetailsDto>> Handle(GetGuestBySpecificationQuery request, CancellationToken cancellationToken)
         {
             var specification = new Specification<Domain.Entities.Guest>();
             if (request.Id != null)

@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Application.DTO.Reservation;
 using Domain.Entities;
 using MediatR;
 
 namespace Application.CQRS.Reservation.Command.Create
 {
-    public class CreateReservationCommand : IRequest<ReservationDto>
+    public class CreateReservationCommand : IRequest<ReservationDetailsDto>
     {
         public decimal TotalPrice { get; set; }
         public DateTime StartDate { get; set; }

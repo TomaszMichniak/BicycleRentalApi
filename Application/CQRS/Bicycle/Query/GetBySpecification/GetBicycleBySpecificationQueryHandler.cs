@@ -1,20 +1,20 @@
-﻿
+﻿using Application.DTO.Bicycle;
 using Domain.Interfaces;
 using Domain.Specification;
 using MediatR;
 
 namespace Application.CQRS.Bicycle.Query.GetBySpecification
 {
-    public class GetBicycleBySpecificationQueryHandler : IRequestHandler<GetBicycleBySpecificationQuery, IPagedResult<BicycleDto>>
+    public class GetBicycleBySpecificationQueryHandler : IRequestHandler<GetBicycleBySpecificationQuery, IPagedResult<BicycleDetailsDto>>
     {
-        private readonly IGenericSpecificationSearchService<Domain.Entities.Bicycle, BicycleDto> _searchService;
+        private readonly IGenericSpecificationSearchService<Domain.Entities.Bicycle, BicycleDetailsDto> _searchService;
 
-        public GetBicycleBySpecificationQueryHandler(IGenericSpecificationSearchService<Domain.Entities.Bicycle, BicycleDto> searchService)
+        public GetBicycleBySpecificationQueryHandler(IGenericSpecificationSearchService<Domain.Entities.Bicycle, BicycleDetailsDto> searchService)
         {
             _searchService = searchService;
         }
 
-        public async Task<IPagedResult<BicycleDto>> Handle(GetBicycleBySpecificationQuery request, CancellationToken cancellationToken)
+        public async Task<IPagedResult<BicycleDetailsDto>> Handle(GetBicycleBySpecificationQuery request, CancellationToken cancellationToken)
         {
             var specification = new Specification<Domain.Entities.Bicycle>();
 

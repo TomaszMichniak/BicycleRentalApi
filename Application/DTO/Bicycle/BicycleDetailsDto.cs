@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Domain.Entities;
 
-namespace Application.CQRS.Bicycle
+namespace Application.DTO.Bicycle
 {
-    public class BicycleDto
+    public class BicycleDetailsDto
     {
         public Guid Id { get; set; }
         public string Name { get; set; } = default!;

@@ -11,10 +11,10 @@ namespace Application.CQRS.Guest.Command.Create
     {
         public CreateGuestCommandValidator()
         {
-            RuleFor(x => x.FirstName).NotEmpty();
-            RuleFor(x => x.LastName).NotEmpty();
-            RuleFor(x => x.Email).NotEmpty().EmailAddress();
-            RuleFor(x => x.Phone).NotEmpty();
+            RuleFor(x => x.Guest.FirstName).NotEmpty();
+            RuleFor(x => x.Guest.LastName).NotEmpty();
+            RuleFor(x => x.Guest.Email).NotEmpty().EmailAddress();
+            RuleFor(x => x.Guest.Phone).NotEmpty();
         }
     }
 }

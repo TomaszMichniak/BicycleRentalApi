@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.CQRS.Guest
+namespace Application.DTO.Guest
 {
-    public class GuestDto
+    public class GuestCreateDto
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
         public string FirstName { get; set; } = default!;
         public string LastName { get; set; } = default!;
         public string Email { get; set; } = default!;
