@@ -22,28 +22,17 @@ namespace Application.Mapping
         {
             //Bicycle
             CreateMap<Bicycle, BicycleDetailsDto>().ReverseMap();
-            CreateMap<CreateBicycleCommand, Bicycle>()
-                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Bicycle.Name))
-                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Bicycle.Description))
-                .ForMember(dest => dest.Size, opt => opt.MapFrom(src => src.Bicycle.Size))
-                .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.Bicycle.ImageUrl))
-                .ForMember(dest => dest.PricePerDay, opt => opt.MapFrom(src => src.Bicycle.PricePerDay))
-                .ForMember(dest => dest.IsAvailable, opt => opt.MapFrom(src => src.Bicycle.IsAvailable)); ;
+            CreateMap<CreateBicycleCommand, Bicycle>().ReverseMap();
             //Address
+            CreateMap<Address, AddressDto>().ReverseMap();
             CreateMap<Address, AddressDetailsDto>().ReverseMap();
-            CreateMap<CreateAddressCommand, Address>().ForMember(dest => dest.Street, opt => opt.MapFrom(src => src.Address.Street))
-                .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.Address.City))
-                .ForMember(dest => dest.PostalCode, opt => opt.MapFrom(src => src.Address.PostalCode)); ;
+            CreateMap<CreateAddressCommand, Address>().ReverseMap();
             //Reservation
             CreateMap<Reservation, ReservationDetailsDto>().ReverseMap();
             CreateMap<CreateReservationCommand, Reservation>();
             //Guest
             CreateMap<Guest, GuestDetailsDto>().ReverseMap();
-            CreateMap<CreateGuestCommand, Guest>()
-                .ForMember(dest => dest.FirstName, opt => opt.MapFrom(src => src.Guest.FirstName))
-                .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => src.Guest.LastName))
-                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Guest.Email))
-                .ForMember(dest => dest.Phone, opt => opt.MapFrom(src => src.Guest.Phone));
+            CreateMap<CreateGuestCommand, Guest>().ReverseMap();
         }
     }
 }

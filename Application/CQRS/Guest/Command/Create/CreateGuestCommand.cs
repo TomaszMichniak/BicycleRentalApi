@@ -8,9 +8,8 @@ using MediatR;
 
 namespace Application.CQRS.Guest.Command.Create
 {
-    public class CreateGuestCommand : IRequest<GuestDetailsDto>
+    public class CreateGuestCommand :GuestCreateDto, IRequest<GuestDetailsDto>
     {
-        public GuestCreateDto Guest { get; set; } = default!;
 
     }
 }

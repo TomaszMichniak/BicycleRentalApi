@@ -41,7 +41,7 @@ namespace Infrastructure.Seeder
                     Description="Przeznaczony na wycieczki terenowe, z przewyższeniami (pagórkowate trasy i średnie góry).",
                     PricePerDay=150,
                     Size=BicycleSize.M,
-                    ImageUrl="//"
+                    ImageUrl="./src/assets/rower-elektryczny-gorski-mtb-rockrider-e-st-500-275.jpg"
 
                 },
                  new Bicycle()
@@ -50,7 +50,7 @@ namespace Infrastructure.Seeder
                     Description="Przeznaczony na wycieczki terenowe, z przewyższeniami (pagórkowate trasy i średnie góry).",
                     PricePerDay=150,
                     Size=BicycleSize.M,
-                    ImageUrl="//"
+                    ImageUrl="./src/assets/rower-elektryczny-gorski-mtb-rockrider-e-st-500-275.jpg"
 
                 },new Bicycle()
                 {
@@ -58,7 +58,7 @@ namespace Infrastructure.Seeder
                     Description="Przeznaczony na wycieczki terenowe, z przewyższeniami (pagórkowate trasy i średnie góry).",
                     PricePerDay=150,
                     Size=BicycleSize.S,
-                    ImageUrl="//"
+                    ImageUrl="./src/assets/rower-elektryczny-gorski-mtb-rockrider-e-st-500-275.jpg"
 
                 },
                  new Bicycle()
@@ -67,7 +67,7 @@ namespace Infrastructure.Seeder
                     Description="Przeznaczony na wycieczki terenowe, z przewyższeniami (pagórkowate trasy i średnie góry).",
                     PricePerDay=150,
                     Size=BicycleSize.L,
-                    ImageUrl="//"
+                    ImageUrl="./src/assets/rower-elektryczny-gorski-mtb-rockrider-e-st-500-275.jpg"
 
                 },new Bicycle()
                 {
@@ -75,7 +75,7 @@ namespace Infrastructure.Seeder
                     Description="Przeznaczony na wycieczki terenowe, z przewyższeniami (pagórkowate trasy i średnie góry).",
                     PricePerDay=150,
                     Size=BicycleSize.L,
-                    ImageUrl="//"
+                    ImageUrl="./src/assets/rower-elektryczny-gorski-mtb-rockrider-e-st-500-275.jpg"
 
                 },
                  new Bicycle()
@@ -84,8 +84,8 @@ namespace Infrastructure.Seeder
                     Description="Przeznaczony na wycieczki terenowe, z przewyższeniami (pagórkowate trasy i średnie góry).",
                     PricePerDay=150,
                     Size=BicycleSize.XL,
-                    ImageUrl="//"
-
+                    ImageUrl="./src/assets/rower-elektryczny-gorski-mtb-rockrider-e-st-500-275.jpg"
+                        
                 },
 
             };

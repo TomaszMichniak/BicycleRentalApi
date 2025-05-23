@@ -31,13 +31,13 @@ using Domain.Interfaces;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-
 namespace Application.Extensions
 {
     public static class ServiceCollectionsExtensions
     {
         public static void AddApplication(this IServiceCollection Services)
         {
+            Services.AddHttpClient<IGeoLocationService, GeoLocationService>();
             Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
             Services.AddScoped(provider => new MapperConfiguration(cfg =>
             {
@@ -45,6 +45,7 @@ namespace Application.Extensions
                 cfg.AddProfile(new MappingProfile());
             }).CreateMapper()
           );
+            
             Services.AddTransient(typeof(IGenericSpecificationSearchService<,>), typeof(GenericSpecificationSearchService<,>));
             Services.AddTransient<IRequestHandler<GetBicycleBySpecificationQuery, IPagedResult<BicycleDetailsDto>>, GetBicycleBySpecificationQueryHandler>();
 

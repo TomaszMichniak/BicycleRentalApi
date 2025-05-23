@@ -7,7 +7,7 @@ using Domain.Entities;
 
 namespace Application.DTO.Bicycle
 {
-    public class BicycleCreate
+    public class BicycleCreateDto
     {
         public string Name { get; set; } = default!;
         public string Description { get; set; } = default!;

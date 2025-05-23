@@ -11,11 +11,11 @@ namespace Application.CQRS.Bicycle.Command.Create
     {
         public CreateBicycleCommandValidator()
         {
-            RuleFor(x => x.Bicycle.Name).NotNull().MinimumLength(3);
-            RuleFor(x => x.Bicycle.Description).NotNull().MinimumLength(5);
-            RuleFor(x => x.Bicycle.Size).NotNull().IsInEnum();
-            RuleFor(x => x.Bicycle.ImageUrl).NotNull().MinimumLength(5);
-            RuleFor(x => x.Bicycle.PricePerDay).NotNull().GreaterThan(1);
+            RuleFor(x => x.Name).NotNull().MinimumLength(3);
+            RuleFor(x => x.Description).NotNull().MinimumLength(5);
+            RuleFor(x => x.Size).NotNull().IsInEnum();
+            RuleFor(x => x.ImageUrl).NotNull().MinimumLength(5);
+            RuleFor(x => x.PricePerDay).NotNull().GreaterThan(1);
         }
     }
 }

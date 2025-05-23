@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Application.DTO.Address
 {
-    public class AddresCreate
+    public class AddressDto
     {
         public string Street { get; set; } = default!;
         public string City { get; set; } = default!;

@@ -8,8 +8,7 @@ using MediatR;
 
 namespace Application.CQRS.Address.Command.Create
 {
-    public class CreateAddressCommand : IRequest<AddressDetailsDto>
+    public class CreateAddressCommand :AddressDto, IRequest<AddressDetailsDto>
     {
-        public AddresCreate Address { get; set; } = default!;
     }
 }

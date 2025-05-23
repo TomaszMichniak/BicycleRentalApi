@@ -11,9 +11,9 @@ namespace Application.CQRS.Address.Command.Create
     {
         public CreateAddressCommandValidator()
         {
-            RuleFor(x => x.Address.PostalCode).NotEmpty().Matches(@"^\d{2}-\d{3}$");
-            RuleFor(x => x.Address.City).NotEmpty();
-            RuleFor(x=>x.Address.Street).NotEmpty();
+            RuleFor(x => x.PostalCode).NotEmpty().Matches(@"^\d{2}-\d{3}$");
+            RuleFor(x => x.City).NotEmpty();
+            RuleFor(x=>x.Street).NotEmpty();
         }
     }
 }

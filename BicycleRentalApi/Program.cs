@@ -1,4 +1,5 @@
 using Application.Extensions;
+using Application.Services;
 using Infrastructure.Extensions;
 using Infrastructure.Seeder;
 
@@ -23,7 +24,6 @@ builder.Services.AddCors(options =>
               .AllowAnyHeader();
     });
 });
-
 var app = builder.Build();
 //TODO
 app.UseCors("AllowAll");

@@ -9,8 +9,7 @@ using MediatR;
 
 namespace Application.CQRS.Bicycle.Command.Create
 {
-    public class CreateBicycleCommand : IRequest<BicycleDetailsDto>
+    public class CreateBicycleCommand :BicycleCreateDto, IRequest<BicycleDetailsDto>
     {
-        public BicycleCreate Bicycle { get; set; } = default!;
     }
 }
