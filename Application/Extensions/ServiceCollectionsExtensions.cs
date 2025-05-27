@@ -48,7 +48,6 @@ namespace Application.Extensions
             
             Services.AddTransient(typeof(IGenericSpecificationSearchService<,>), typeof(GenericSpecificationSearchService<,>));
             Services.AddTransient<IRequestHandler<GetBicycleBySpecificationQuery, IPagedResult<BicycleDetailsDto>>, GetBicycleBySpecificationQueryHandler>();
-
             Services.AddValidatorsFromAssemblyContaining<CreateBicycleCommandValidator>();
             //Create
             Services.AddTransient<IRequestHandler<CreateBicycleCommand, BicycleDetailsDto>, GenericCreateCommandHandler<CreateBicycleCommand, Bicycle, BicycleDetailsDto>>();

@@ -1,5 +1,6 @@
 using Application.Extensions;
 using Application.Services;
+using BicycleRentalApi.Middleware;
 using Infrastructure.Extensions;
 using Infrastructure.Seeder;
 
@@ -13,7 +14,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructures(builder.Configuration);
+builder.Services.AddScoped<ExceptionHandlingMiddleware>();
 
+// w pipeline:
 //TODO
 builder.Services.AddCors(options =>
 {
@@ -25,6 +28,7 @@ builder.Services.AddCors(options =>
     });
 });
 var app = builder.Build();
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 //TODO
 app.UseCors("AllowAll");
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Application.DTO.Address;
+using Domain.Entities;
 using Domain.Interfaces;
 using Domain.Specification;
 using MediatR;
@@ -19,5 +20,7 @@ namespace Application.CQRS.Address.Query.GetBySpecification
         public string? City { get; set; }
         public string? Street { get; set; }
         public string? PostalCode { get; set; }
+
+        public AddressType? addressType { get; set; }
     }
 }

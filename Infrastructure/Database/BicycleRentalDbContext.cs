@@ -5,11 +5,12 @@ using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Entities;
+using Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Database
 {
-    public class BicycleRentalDbContext : DbContext
+    public class BicycleRentalDbContext : DbContext,IBicycleRentalDbContext
     {
         public BicycleRentalDbContext(DbContextOptions options) : base(options)
         {

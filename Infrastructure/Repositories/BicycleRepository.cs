@@ -18,13 +18,23 @@ namespace Infrastructure.Repositories
 
         public async Task<List<Bicycle>> GetAvailableBicyclesByDates(DateTime start, DateTime end)
         {
-             var availableBicycles = await _dbContext.Bicycles
-                .Where(b => !b.Reservations.Any(br =>
-                    br.StartDate <= end &&
-                    br.EndDate >= start))
-                .ToListAsync();
+            var availableBicycles = await _dbContext.Bicycles
+               .Where(b => !b.Reservations.Any(br =>
+                   br.StartDate <= end &&
+                   br.EndDate >= start))
+               .ToListAsync();
 
             return availableBicycles;
+        }
+        public async Task<List<Bicycle>> GetAvailableBicycles(DateTime startDate, DateTime endDate, BicycleSize size, string name)
+        {
+            return await _dbContext.Bicycles
+                .Where(b => b.Size == size && b.Name == name)
+                .Where(b => !b.Reservations.Any(r =>
+                    r.StartDate < endDate &&
+                    r.EndDate > startDate
+                ))
+                .ToListAsync();
         }
     }
 }

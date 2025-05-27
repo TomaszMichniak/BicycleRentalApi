@@ -29,8 +29,32 @@ namespace Infrastructure.Seeder
                 _dbContext.Bicycles.AddRange(bicycles);
                 await _dbContext.SaveChangesAsync();
             }
+            if(!_dbContext.Addresses.Any())
+            {
+                var addresses = GetAddresses();
+                _dbContext.Addresses.AddRange(addresses);
+                await _dbContext.SaveChangesAsync();
+            }
         }
-
+        private IEnumerable<Address> GetAddresses()
+        {
+            var addresses = new List<Address>() {
+                new Address()
+                {
+                    Street="ul. Nędzy Kubińca 255",
+                    City="Kościelisko",
+                    PostalCode="34-511",
+                    Type=AddressType.PickupPoint
+                },  new Address()
+                {
+                    Street="113",
+                    City="Nowe Bystre",
+                    PostalCode="34-521",
+                    Type=AddressType.PickupPoint
+                },
+            };
+            return addresses;
+        }
         private IEnumerable<Bicycle> GetBicycles()
         {
             var bicycles = new List<Bicycle>()

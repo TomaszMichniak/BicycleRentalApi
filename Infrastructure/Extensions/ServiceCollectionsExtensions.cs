@@ -20,7 +20,7 @@ namespace Infrastructure.Extensions
         {
 
             var connectionString = configuration.GetConnectionString("BicycleRentalDb");
-            Services.AddDbContext<BicycleRentalDbContext>(options =>
+            Services.AddDbContext<IBicycleRentalDbContext, BicycleRentalDbContext>(options =>
                 options.UseSqlServer(connectionString)
                     .EnableSensitiveDataLogging());
             Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
@@ -28,6 +28,7 @@ namespace Infrastructure.Extensions
             Services.AddScoped<IReservationRepository, ReservationRepository>();
             Services.AddScoped<IPaymentRepository, PaymentRepository>();
             Services.AddScoped<IAddressRepository, AddressRepository>();
+            Services.AddScoped<IGuestRepository, GuestRepository>();
             Services.AddScoped<BicycleRentalApiSeeder>();
             Services.AddScoped(typeof(ISpecification<>), typeof(Specification<>));
         }

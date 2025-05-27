@@ -12,6 +12,12 @@ namespace Domain.Entities
         public string Street { get; set; } = default!;
         public string City { get; set; } = default!;
         public string PostalCode { get; set; } = default!;
+        public AddressType Type { get; set; } = AddressType.GuestAddress;
         public ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
+    }
+    public enum AddressType
+    {
+        PickupPoint,
+        GuestAddress
     }
 }

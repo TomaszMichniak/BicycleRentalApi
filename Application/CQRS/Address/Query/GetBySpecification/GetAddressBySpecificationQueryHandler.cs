@@ -34,6 +34,8 @@ namespace Application.CQRS.Address.Query.GetBySpecification
 
             if (request.Street != null)
                 specification.Criteria.Add(x => x.Street.ToLower().Contains(request.Street.ToLower()));
+            if(request.addressType != null)
+                specification.Criteria.Add(x => x.Type == request.addressType);
 
             return await _searchService.SearchAsync(specification, request.PageNumber, request.PageSize);
         }

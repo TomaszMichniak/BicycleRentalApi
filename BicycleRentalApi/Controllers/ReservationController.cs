@@ -4,6 +4,7 @@ using Application.CQRS.Reservation.Command.CreateReservationWithTransaction;
 using Application.CQRS.Reservation.Command.Delete;
 using Application.CQRS.Reservation.Command.Edit;
 using Application.CQRS.Reservation.Query.GetBySpecification;
+using Application.DTO.Address;
 using FluentValidation.Results;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -45,12 +46,12 @@ namespace BicycleRentalApi.Controllers
         // [Authorize(Roles ="admin")]
         public async Task<IActionResult> CreateReservationWithTransaction([FromBody] CreateReservationWithTransactionCommand command)
         {
-            //CreateReservationCommandValidator _validator = new CreateReservationCommandValidator();
-            //ValidationResult result = await _validator.ValidateAsync(command);
-            //if (!result.IsValid)
-            //{
-            //    return BadRequest(result.Errors);
-            //}
+            CreateReservationWithTransactionCommandValidator _validator = new CreateReservationWithTransactionCommandValidator();
+            ValidationResult result = await _validator.ValidateAsync(command);
+            if (!result.IsValid)
+            {
+                return BadRequest(result.Errors);
+            }
             var data = await _mediator.Send(command);
             return Ok(data);
         }
