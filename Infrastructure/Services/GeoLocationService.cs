@@ -52,14 +52,30 @@ namespace Application.Services
             var location = firstResult.GetProperty("geometry").GetProperty("location");
             var lat = location.GetProperty("lat").GetDouble();
             var lng = location.GetProperty("lng").GetDouble();
+            var streetNumber = GetComponent(firstResult, "street_number");
+            var route = GetComponent(firstResult, "route");
+            var premise = GetComponent(firstResult, "premise");
 
-            // Opcjonalnie: możesz ustandaryzować adres na podstawie danych z Google
-            var updatedAddress = new Address
+            string street;
+            if (!string.IsNullOrEmpty(route) && !string.IsNullOrEmpty(streetNumber))
             {
-                Street = $"{GetComponent(firstResult, "route")} {GetComponent(firstResult, "street_number")}".Trim(),
-                City = GetComponent(firstResult, "locality") != "" ? GetComponent(firstResult, "locality") : GetComponent(firstResult, "postal_town"),
-                PostalCode = GetComponent(firstResult, "postal_code")
-            };
+                street = $"{route} {streetNumber}";
+            }
+            else if (!string.IsNullOrEmpty(premise))
+            {
+                street = premise;
+            }
+            else
+            {
+                street = "";
+            }
+                // Opcjonalnie: możesz ustandaryzować adres na podstawie danych z Google
+                var updatedAddress = new Address
+                {
+                    Street = street.Trim(),
+                    City = GetComponent(firstResult, "locality") != "" ? GetComponent(firstResult, "locality") : GetComponent(firstResult, "postal_town"),
+                    PostalCode = GetComponent(firstResult, "postal_code")
+                };
 
             return (updatedAddress, lat, lng);
         }

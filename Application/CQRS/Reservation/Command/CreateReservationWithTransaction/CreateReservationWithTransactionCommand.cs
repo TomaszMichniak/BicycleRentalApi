@@ -20,6 +20,5 @@ namespace Application.CQRS.Reservation.Command.CreateReservationWithTransaction
         public AddressDto Address { get; set; } = default!;
         public GuestCreateDto Guest { get; set; } = default!;
         public IEnumerable<BicycleCartItem> Bicycles { get; set; } = new List<BicycleCartItem>();
-        //TODO Payment
     }
 }

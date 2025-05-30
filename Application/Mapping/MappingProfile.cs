@@ -10,6 +10,7 @@ using Application.CQRS.Reservation.Command.Create;
 using Application.DTO.Address;
 using Application.DTO.Bicycle;
 using Application.DTO.Guest;
+using Application.DTO.Payment;
 using Application.DTO.Reservation;
 using AutoMapper;
 using Domain.Entities;
@@ -33,6 +34,8 @@ namespace Application.Mapping
             //Guest
             CreateMap<Guest, GuestDetailsDto>().ReverseMap();
             CreateMap<CreateGuestCommand, Guest>().ReverseMap();
+            //Payment
+            CreateMap<Payment, PaymentDto>().ReverseMap();
         }
     }
 }

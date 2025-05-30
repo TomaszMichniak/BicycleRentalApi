@@ -9,5 +9,6 @@ namespace Domain.Interfaces
 {
     public interface IPaymentRepository: IGenericRepository<Payment>
     {
+        public Task<Payment?> GetPaymentByOrderId(string Id);
     }
 }

@@ -15,9 +15,5 @@ namespace Infrastructure.Repositories
         {
         }
 
-        public Task<Reservation> CreateReservationAsync(Reservation reservation )
-        {
-            throw new NotImplementedException();
-        }
     }
 }

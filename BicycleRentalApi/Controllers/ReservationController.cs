@@ -1,10 +1,12 @@
 ﻿using Application.CQRS.Bicycle.Query.GetBySpecification;
+using Application.CQRS.Payment.Command.Create;
 using Application.CQRS.Reservation.Command.Create;
 using Application.CQRS.Reservation.Command.CreateReservationWithTransaction;
 using Application.CQRS.Reservation.Command.Delete;
 using Application.CQRS.Reservation.Command.Edit;
 using Application.CQRS.Reservation.Query.GetBySpecification;
 using Application.DTO.Address;
+using Application.DTO.Payment;
 using FluentValidation.Results;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -46,14 +48,42 @@ namespace BicycleRentalApi.Controllers
         // [Authorize(Roles ="admin")]
         public async Task<IActionResult> CreateReservationWithTransaction([FromBody] CreateReservationWithTransactionCommand command)
         {
+            //Reservation
             CreateReservationWithTransactionCommandValidator _validator = new CreateReservationWithTransactionCommandValidator();
             ValidationResult result = await _validator.ValidateAsync(command);
             if (!result.IsValid)
             {
                 return BadRequest(result.Errors);
             }
-            var data = await _mediator.Send(command);
-            return Ok(data);
+            var reservationDto = await _mediator.Send(command);
+            //Payment
+            var createPaymentCommand = new CreatePaymentCommand
+            {
+                ReservationId = reservationDto.Id,
+                CustomerIp = HttpContext.Connection.RemoteIpAddress?.ToString(),
+                Description = $"Rezerwacja nr {reservationDto.Id}",
+                TotalAmount = reservationDto.TotalPrice,
+                Buyer = new BuyerDto
+                {
+                    Email = command.Guest.Email,
+                    FirstName = command.Guest.FirstName,
+                    LastName = command.Guest.LastName,
+                    Language = "pl"
+                },
+                Products = command.Bicycles.Select(b => new ProductDto
+                {
+                    Name = b.Name,
+                    UnitPrice = (b.PricePerDay * 100).ToString("F0"),
+                    Quantity = b.Quantity.ToString()
+                }).ToList()
+            };
+
+            var paymentUrl = await _mediator.Send(createPaymentCommand);
+
+            return Ok(new
+            {
+                PaymentUrl = paymentUrl
+            });
         }
         [HttpPut]
         //[Authorize(Roles ="admin")]

@@ -21,7 +21,11 @@ namespace Infrastructure.Repositories
             var availableBicycles = await _dbContext.Bicycles
                .Where(b => !b.Reservations.Any(br =>
                    br.StartDate <= end &&
-                   br.EndDate >= start))
+                   br.EndDate >= start && (
+                   br.Payment.Status == PaymentStatus.Pending ||
+                   br.Payment.Status == PaymentStatus.Paid ||
+                   br.Payment.Status == PaymentStatus.WaitingForConfirmation
+               )))
                .ToListAsync();
 
             return availableBicycles;
@@ -32,8 +36,11 @@ namespace Infrastructure.Repositories
                 .Where(b => b.Size == size && b.Name == name)
                 .Where(b => !b.Reservations.Any(r =>
                     r.StartDate < endDate &&
-                    r.EndDate > startDate
-                ))
+                    r.EndDate > startDate && (
+                    r.Payment.Status == PaymentStatus.Pending ||
+                    r.Payment.Status == PaymentStatus.Paid ||
+                    r.Payment.Status == PaymentStatus.WaitingForConfirmation
+                )))
                 .ToListAsync();
         }
     }

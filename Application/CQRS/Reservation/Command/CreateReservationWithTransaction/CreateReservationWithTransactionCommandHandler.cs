@@ -68,7 +68,7 @@ namespace Application.CQRS.Reservation.Command.CreateReservationWithTransaction
                     await _dbContext.SaveChangesAsync(cancellationToken);
                     address = newAddress;
                 }
-                else if (request.Address?.Id != null)
+                else if (request.Address.Id != null)
                 {
                     address = await _addressRepository.GetByIdAsync(request.Address.Id.Value);
                 }
@@ -121,6 +121,7 @@ namespace Application.CQRS.Reservation.Command.CreateReservationWithTransaction
                 await transaction.CommitAsync(cancellationToken);
 
                 var reservationDto = _mapper.Map<ReservationDetailsDto>(reservation);
+                
                 return reservationDto;
             }
             catch

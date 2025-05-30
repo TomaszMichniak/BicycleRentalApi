@@ -34,6 +34,10 @@ namespace Application.CQRS.Reservation.Query.GetBySpecification
                 specification.Criteria.Add(x => x.StartDate >= request.StartDate);
             if (request.EndDate != null)
                 specification.Criteria.Add(x => x.EndDate <= request.EndDate);
+            specification.Includes.Add(x => x.Bicycles);
+            specification.Includes.Add(x => x.Guest);
+            specification.Includes.Add(x => x.Address);
+            specification.Includes.Add(x => x.Payment);
             return await _searchService.SearchAsync(specification, request.PageNumber, request.PageSize);
         }
     }

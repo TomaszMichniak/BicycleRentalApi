@@ -1,6 +1,8 @@
 using Application.Extensions;
 using Application.Services;
 using BicycleRentalApi.Middleware;
+using Domain.Interfaces;
+using Hangfire;
 using Infrastructure.Extensions;
 using Infrastructure.Seeder;
 
@@ -15,6 +17,11 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructures(builder.Configuration);
 builder.Services.AddScoped<ExceptionHandlingMiddleware>();
+
+//Hangfire configuration
+builder.Services.AddHangfire(config =>
+    config.UseSqlServerStorage(builder.Configuration.GetConnectionString("BicycleRentalDb")));
+builder.Services.AddHangfireServer();
 
 // w pipeline:
 //TODO
@@ -32,6 +39,12 @@ app.UseMiddleware<ExceptionHandlingMiddleware>();
 //TODO
 app.UseCors("AllowAll");
 
+//Hangfire Monitor
+app.UseHangfireDashboard("/hangfire");
+RecurringJob.AddOrUpdate<IReservationCleanerService>(
+    "cleanup-expired-reservations",
+    service => service.CleanupExpiredReservationsAsync(),
+    "*/5 * * * *");
 //Seeder
 var scope = app.Services.CreateScope();
 var seeder = scope.ServiceProvider.GetRequiredService<BicycleRentalApiSeeder>();

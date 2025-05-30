@@ -37,7 +37,6 @@ namespace Application.Extensions
     {
         public static void AddApplication(this IServiceCollection Services)
         {
-            Services.AddHttpClient<IGeoLocationService, GeoLocationService>();
             Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
             Services.AddScoped(provider => new MapperConfiguration(cfg =>
             {

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Application.DTO.Bicycle;
+using Application.DTO.Payment;
 using Domain.Entities;
 
 namespace Application.DTO.Reservation
@@ -17,5 +19,7 @@ namespace Application.DTO.Reservation
         public DateTime CreatedAt { get; set; }
         public Guid GuestId { get; set; }
         public Guid AddressId { get; set; }
+        public List<BicycleDetailsDto> Bicycles { get; set; } = new();
+        public PaymentDto Payment { get; set; } = default!;
     }
 }

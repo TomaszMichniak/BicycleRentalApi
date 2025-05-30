@@ -14,10 +14,12 @@ namespace Domain.Entities
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime DeliveryHour { get; set; }
         public Guid GuestId { get; set; }
         public Guest Guest { get; set; } = default!;
         public Guid AddressId { get; set; }
         public Address Address { get; set; } = default!;
         public ICollection<Bicycle> Bicycles { get; set; } = default!;
+        public Payment Payment { get; set; } = default!;
     }
 }
