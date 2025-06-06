@@ -34,6 +34,7 @@ namespace Infrastructure.Extensions
             Services.AddScoped<IGuestRepository, GuestRepository>();
             Services.AddScoped<IReservationCleanerService, ReservationCleanerService>();
             Services.AddScoped<BicycleRentalApiSeeder>();
+            Services.AddScoped<IEmailService, EmailService>();
             Services.AddScoped(typeof(ISpecification<>), typeof(Specification<>));
         }
     }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using Application.DTO.Payment;
 using MediatR;
 
 namespace Application.CQRS.Payment.Command.Notify
@@ -12,7 +13,7 @@ namespace Application.CQRS.Payment.Command.Notify
     {
         public string RawBody { get; set; } = default!;
         public string SignatureHeader { get; set; } = default!;
-     
+
     }
     public class PayuOrder
     {
@@ -20,5 +21,7 @@ namespace Application.CQRS.Payment.Command.Notify
         public string OrderId { get; set; }
         [JsonPropertyName("status")]
         public string Status { get; set; }
+        [JsonPropertyName("buyer")]
+        public BuyerDto Buyer { get; set; }
     }
 }

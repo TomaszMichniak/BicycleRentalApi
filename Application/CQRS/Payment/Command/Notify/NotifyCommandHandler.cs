@@ -11,11 +11,13 @@ public class NotifyCommandHandler : IRequestHandler<NotifyCommand, bool>
 {
     private readonly IPaymentRepository _paymentRepository;
     private readonly IConfiguration _configuration;
+    private readonly IEmailService _emailService;
 
-    public NotifyCommandHandler(IPaymentRepository paymentRepository, IConfiguration configuration)
+    public NotifyCommandHandler(IPaymentRepository paymentRepository, IConfiguration configuration, IEmailService emailService)
     {
         _paymentRepository = paymentRepository;
         _configuration = configuration;
+        _emailService = emailService;
     }
 
     public async Task<bool> Handle(NotifyCommand request, CancellationToken cancellationToken)
@@ -48,7 +50,6 @@ public class NotifyCommandHandler : IRequestHandler<NotifyCommand, bool>
         var payment = await _paymentRepository.GetPaymentByOrderId(order.OrderId);
         if (payment == null)
             return false;
-
         switch (order.Status.ToUpperInvariant())
         {
             case "PENDING":
@@ -60,6 +61,10 @@ public class NotifyCommandHandler : IRequestHandler<NotifyCommand, bool>
             case "COMPLETED":
                 payment.Status = PaymentStatus.Paid;
                 payment.PaidAt ??= DateTime.UtcNow;
+
+                var subject = "Twoja rezerwacja została opłacona";
+                var body = $"Dziękujemy za dokonanie płatności za rezerwację nr {payment.ReservationId}.";
+                await _emailService.SendEmailAsync(order.Buyer.Email, subject, body);
                 break;
             case "FAILED":
                 payment.Status = PaymentStatus.Failed;

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(BicycleRentalDbContext))]
-    [Migration("20250530080445_InitialCreate")]
+    [Migration("20250605161817_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -189,8 +189,9 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DeliveryHour")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("DeliveryHours")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");

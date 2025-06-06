@@ -18,6 +18,14 @@ namespace BicycleRentalApi.Middleware
             {
                 await next(context);
             }
+            catch (InvalidDataException ex)
+            {
+                await HandleExceptionAsync(context, HttpStatusCode.BadRequest, "Invalid data", ex.Message);
+            }
+            catch (AddressResolutionException ex)
+            {
+                await HandleExceptionAsync(context, HttpStatusCode.BadRequest, "AddressResolutionFailed", ex.Message);
+            }
 
             catch (DeliveryRangeExceededException ex)
             {

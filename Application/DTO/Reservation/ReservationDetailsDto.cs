@@ -17,6 +17,7 @@ namespace Application.DTO.Reservation
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public DateTime CreatedAt { get; set; }
+        public string DeliveryHours { get; set; } = default!;
         public Guid GuestId { get; set; }
         public Guid AddressId { get; set; }
         public List<BicycleDetailsDto> Bicycles { get; set; } = new();

@@ -31,7 +31,7 @@ namespace Infrastructure.Services
             var expiredReservations = await _dbContext.Reservations
                 .Include(r => r.Payment)
                 .Include(r => r.Address)
-                .Where(r => r.CreatedAt < expirationThreshold 
+                .Where(r => r.CreatedAt < expirationThreshold
                 && !r.IsConfirmed
                 && (r.Payment.Status == PaymentStatus.Pending || r.Payment.Status == null))
                 .ToListAsync();
@@ -40,8 +40,10 @@ namespace Infrastructure.Services
             {
                 if (reservation.Payment.Status == null)
                 {
-                   
-                    await _addressRepository.DeleteAsync(reservation.Address);
+                    if (reservation.Address.Type != AddressType.PickupPoint)
+                    {
+                        await _addressRepository.DeleteAsync(reservation.Address);
+                    }
                     _dbContext.Reservations.Remove(reservation);
                 }
                 else if (reservation.Payment.Status == PaymentStatus.Pending)

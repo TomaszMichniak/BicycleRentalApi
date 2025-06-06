@@ -50,7 +50,7 @@ namespace Application.CQRS.Reservation.Command.CreateReservationWithTransaction
                     });
 
                     if (coordinatesResult == null)
-                        throw new InvalidOperationException("Unable to resolve the coordinates for the given address.");
+                        throw new AddressResolutionException("Unable to resolve the coordinates for the given address.");
 
 
                     if (!_geoLocationService.IsWithinDeliveryRange(coordinatesResult.Value.Lat, coordinatesResult.Value.Lng))
@@ -112,6 +112,7 @@ namespace Application.CQRS.Reservation.Command.CreateReservationWithTransaction
                     StartDate = request.StartDate,
                     EndDate = request.EndDate,
                     TotalPrice = request.TotalPrice,
+                    DeliveryHours=request.DeliveryHours,
                     Bicycles = allReservedBicycles,
                 };
 

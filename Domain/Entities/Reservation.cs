@@ -14,7 +14,7 @@ namespace Domain.Entities
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        public DateTime DeliveryHour { get; set; }
+        public string DeliveryHours { get; set; } = default!;
         public Guid GuestId { get; set; }
         public Guest Guest { get; set; } = default!;
         public Guid AddressId { get; set; }
