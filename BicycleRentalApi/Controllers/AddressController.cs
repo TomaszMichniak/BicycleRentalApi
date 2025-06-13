@@ -4,13 +4,14 @@ using Application.CQRS.Address.Command.Edit;
 using Application.CQRS.Address.Query.GetBySpecification;
 using FluentValidation.Results;
 using MediatR;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BicycleRentalApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AddressController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -25,8 +26,16 @@ namespace BicycleRentalApi.Controllers
             var result = await _mediator.Send(query);
             return Ok(result);
         }
+        [HttpGet]
+        [Route("GetPickupPoints")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetPickupPoints()
+        {
+            var command = new GetAddressBySpecificationQuery() { addressType = Domain.Entities.AddressType.PickupPoint };
+            var result = await _mediator.Send(command);
+            return Ok(result);
+        }
         [HttpPost]
-        // [Authorize(Roles ="admin")]
         public async Task<IActionResult> Create([FromBody] CreateAddressCommand command)
         {
             CreateAddressCommandValidator _validator = new CreateAddressCommandValidator();
@@ -39,7 +48,6 @@ namespace BicycleRentalApi.Controllers
             return Ok(data);
         }
         [HttpPut]
-        //[Authorize(Roles ="admin")]
         public async Task<IActionResult> Edit([FromBody] EditAddressCommand command)
         {
             EditAddressCommandValidator _validator = new EditAddressCommandValidator();
@@ -51,7 +59,6 @@ namespace BicycleRentalApi.Controllers
         }
         [HttpDelete]
         [Route("{id}")]
-        // [Authorize(Roles ="admin")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
             await _mediator.Send(new DeleteAddressCommand(id));

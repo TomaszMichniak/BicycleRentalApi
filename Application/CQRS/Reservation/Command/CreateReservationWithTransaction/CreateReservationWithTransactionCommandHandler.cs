@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Application.DTO.Reservation;
+﻿using Application.DTO.Reservation;
 using Application.Exceptions;
 using AutoMapper;
 using Domain.Entities;
@@ -58,9 +53,9 @@ namespace Application.CQRS.Reservation.Command.CreateReservationWithTransaction
 
                     var newAddress = new Domain.Entities.Address
                     {
-                        Street = coordinatesResult.Value.address.Street,
-                        City = coordinatesResult.Value.address.City,
-                        PostalCode = coordinatesResult.Value.address.PostalCode,
+                        Street = request.Address.Street,
+                        City = request.Address.City,
+                        PostalCode = request.Address.PostalCode,
                         Type = request.Address.Type,
                     };
 
@@ -112,7 +107,7 @@ namespace Application.CQRS.Reservation.Command.CreateReservationWithTransaction
                     StartDate = request.StartDate,
                     EndDate = request.EndDate,
                     TotalPrice = request.TotalPrice,
-                    DeliveryHours=request.DeliveryHours,
+                    DeliveryHours = request.DeliveryHours,
                     Bicycles = allReservedBicycles,
                 };
 
@@ -122,7 +117,7 @@ namespace Application.CQRS.Reservation.Command.CreateReservationWithTransaction
                 await transaction.CommitAsync(cancellationToken);
 
                 var reservationDto = _mapper.Map<ReservationDetailsDto>(reservation);
-                
+
                 return reservationDto;
             }
             catch

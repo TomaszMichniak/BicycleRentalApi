@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
-using Application.DTO.Payment;
+﻿using Application.DTO.Payment;
 using Domain.Interfaces;
 using MediatR;
-using Microsoft.Extensions.Configuration;
 
 namespace Application.CQRS.Payment.Command.Create
 {
@@ -45,6 +37,6 @@ namespace Application.CQRS.Payment.Command.Create
 
 
         }
-       
+
     }
 }

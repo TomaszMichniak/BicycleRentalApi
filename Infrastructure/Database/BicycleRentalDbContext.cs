@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Database
 {
-    public class BicycleRentalDbContext : DbContext,IBicycleRentalDbContext
+    public class BicycleRentalDbContext : DbContext, IBicycleRentalDbContext
     {
         public BicycleRentalDbContext(DbContextOptions options) : base(options)
         {
@@ -38,6 +32,6 @@ namespace Infrastructure.Database
                 .Property(r => r.TotalPrice)
                 .HasPrecision(8, 2);
         }
-      
+
     }
 }

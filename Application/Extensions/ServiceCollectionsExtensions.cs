@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Reflection;
 using Application.CQRS.Address.Command.Create;
 using Application.CQRS.Address.Command.Delete;
 using Application.CQRS.Address.Command.Edit;
@@ -23,13 +18,13 @@ using Application.DTO.Bicycle;
 using Application.DTO.Guest;
 using Application.DTO.Reservation;
 using Application.Mapping;
-using Application.Pagination;
 using Application.Services;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Interfaces;
 using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 namespace Application.Extensions
 {
@@ -44,7 +39,8 @@ namespace Application.Extensions
                 cfg.AddProfile(new MappingProfile());
             }).CreateMapper()
           );
-            
+            Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+
             Services.AddTransient(typeof(IGenericSpecificationSearchService<,>), typeof(GenericSpecificationSearchService<,>));
             Services.AddTransient<IRequestHandler<GetBicycleBySpecificationQuery, IPagedResult<BicycleDetailsDto>>, GetBicycleBySpecificationQueryHandler>();
             Services.AddValidatorsFromAssemblyContaining<CreateBicycleCommandValidator>();

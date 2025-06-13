@@ -1,21 +1,21 @@
-﻿using Application.CQRS.Bicycle.Query.GetBySpecification;
-using Application.CQRS.Payment.Command.Create;
+﻿using Application.CQRS.Payment.Command.Create;
+using Application.CQRS.Reservation.Command.ConfirmReservation;
 using Application.CQRS.Reservation.Command.Create;
 using Application.CQRS.Reservation.Command.CreateReservationWithTransaction;
 using Application.CQRS.Reservation.Command.Delete;
 using Application.CQRS.Reservation.Command.Edit;
 using Application.CQRS.Reservation.Query.GetBySpecification;
-using Application.DTO.Address;
 using Application.DTO.Payment;
 using FluentValidation.Results;
 using MediatR;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BicycleRentalApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    // [Authorize]
     public class ReservationController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -31,7 +31,6 @@ namespace BicycleRentalApi.Controllers
             return Ok(result);
         }
         [HttpPost]
-        // [Authorize(Roles ="admin")]
         public async Task<IActionResult> Create([FromBody] CreateReservationCommand command)
         {
             CreateReservationCommandValidator _validator = new CreateReservationCommandValidator();
@@ -45,7 +44,7 @@ namespace BicycleRentalApi.Controllers
         }
         [HttpPost]
         [Route("CreateReservationWithTransaction")]
-        // [Authorize(Roles ="admin")]
+        [AllowAnonymous]
         public async Task<IActionResult> CreateReservationWithTransaction([FromBody] CreateReservationWithTransactionCommand command)
         {
             //Reservation
@@ -85,8 +84,14 @@ namespace BicycleRentalApi.Controllers
                 PaymentUrl = paymentUrl
             });
         }
+        [HttpPatch]
+        [Route("confirm-reservation/{Id}")]
+        public async Task<IActionResult> ConfirmReservation([FromRoute] ConfirmReservationCommand command)
+        {
+            await _mediator.Send(command);
+            return Ok();
+        }
         [HttpPut]
-        //[Authorize(Roles ="admin")]
         public async Task<IActionResult> Edit([FromBody] EditReservationCommand command)
         {
             EditReservationCommandValidator _validator = new EditReservationCommandValidator();
@@ -98,7 +103,6 @@ namespace BicycleRentalApi.Controllers
         }
         [HttpDelete]
         [Route("{id}")]
-        // [Authorize(Roles ="admin")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
             await _mediator.Send(new DeleteReservationCommand(id));

@@ -1,23 +1,32 @@
-﻿using Application.CQRS.Payment.Command.Notify;
+﻿using System.Security.Cryptography;
+using System.Text;
+using System.Text.Json;
+using Application.CQRS.Payment.Command.Notify;
 using Domain.Entities;
 using Domain.Interfaces;
 using MediatR;
 using Microsoft.Extensions.Configuration;
-using System.Security.Cryptography;
-using System.Text.Json;
-using System.Text;
 
 public class NotifyCommandHandler : IRequestHandler<NotifyCommand, bool>
 {
     private readonly IPaymentRepository _paymentRepository;
     private readonly IConfiguration _configuration;
     private readonly IEmailService _emailService;
+    private readonly IReservationRepository _reservationRepository;
+    private readonly IAddressRepository _addressRepository;
+    private readonly IGuestRepository _guestRepository;
 
-    public NotifyCommandHandler(IPaymentRepository paymentRepository, IConfiguration configuration, IEmailService emailService)
+    public NotifyCommandHandler(IPaymentRepository paymentRepository,
+        IConfiguration configuration, IEmailService emailService,
+        IReservationRepository reservationRepository, IAddressRepository addressRepository,
+        IGuestRepository guestRepository)
     {
         _paymentRepository = paymentRepository;
         _configuration = configuration;
         _emailService = emailService;
+        _reservationRepository = reservationRepository;
+        _addressRepository = addressRepository;
+        _guestRepository = guestRepository;
     }
 
     public async Task<bool> Handle(NotifyCommand request, CancellationToken cancellationToken)
@@ -61,10 +70,6 @@ public class NotifyCommandHandler : IRequestHandler<NotifyCommand, bool>
             case "COMPLETED":
                 payment.Status = PaymentStatus.Paid;
                 payment.PaidAt ??= DateTime.UtcNow;
-
-                var subject = "Twoja rezerwacja została opłacona";
-                var body = $"Dziękujemy za dokonanie płatności za rezerwację nr {payment.ReservationId}.";
-                await _emailService.SendEmailAsync(order.Buyer.Email, subject, body);
                 break;
             case "FAILED":
                 payment.Status = PaymentStatus.Failed;
@@ -99,7 +104,7 @@ public class NotifyCommandHandler : IRequestHandler<NotifyCommand, bool>
 
         var signature = ExtractSignature(signatureHeader);
 
-        var concatenated =rawBody + secondKey;
+        var concatenated = rawBody + secondKey;
 
         using var md5 = MD5.Create();
         var hashBytes = md5.ComputeHash(Encoding.UTF8.GetBytes(concatenated));

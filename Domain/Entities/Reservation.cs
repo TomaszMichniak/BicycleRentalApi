@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Domain.Entities
+﻿namespace Domain.Entities
 {
     public class Reservation
     {
         public Guid Id { get; set; } = Guid.NewGuid();
         public decimal TotalPrice { get; set; }
-        public bool IsConfirmed { get; set; } = false;
+        public ReservationStatus Status { get; set; } = ReservationStatus.Pending;
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
@@ -21,5 +15,11 @@ namespace Domain.Entities
         public Address Address { get; set; } = default!;
         public ICollection<Bicycle> Bicycles { get; set; } = default!;
         public Payment Payment { get; set; } = default!;
+    }
+    public enum ReservationStatus
+    {
+        Pending,
+        Confirmed,
+        Cancelled,
     }
 }

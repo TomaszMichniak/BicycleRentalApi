@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Application.DTO.Reservation;
+﻿using Application.DTO.Reservation;
 using Domain.Interfaces;
 using Domain.Specification;
 using MediatR;
@@ -26,8 +21,8 @@ namespace Application.CQRS.Reservation.Query.GetBySpecification
                 specification.Criteria.Add(x => x.Id == request.Id);
             if (request.GuestId != null)
                 specification.Criteria.Add(x => x.GuestId == request.GuestId);
-            if (request.IsConfirmed != null)
-                specification.Criteria.Add(x => x.IsConfirmed == request.IsConfirmed);
+            if (request.Status != null)
+                specification.Criteria.Add(x => x.Status == request.Status);
             if (request.AddressId != null)
                 specification.Criteria.Add(x => x.AddressId == request.AddressId);
             if (request.StartDate != null)

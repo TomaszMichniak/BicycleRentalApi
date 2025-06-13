@@ -1,5 +1,6 @@
+using System.Globalization;
 using Application.Extensions;
-using Application.Services;
+using BicycleRentalApi.Extenstions;
 using BicycleRentalApi.Middleware;
 using Domain.Interfaces;
 using Hangfire;
@@ -10,18 +11,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new UtcDateTimeConverter());
+    });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.AddPresentation();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructures(builder.Configuration);
-builder.Services.AddScoped<ExceptionHandlingMiddleware>();
 
-//Hangfire configuration
-builder.Services.AddHangfire(config =>
-    config.UseSqlServerStorage(builder.Configuration.GetConnectionString("BicycleRentalDb")));
-builder.Services.AddHangfireServer();
 
 // w pipeline:
 //TODO
@@ -49,6 +49,17 @@ RecurringJob.AddOrUpdate<IReservationCleanerService>(
 var scope = app.Services.CreateScope();
 var seeder = scope.ServiceProvider.GetRequiredService<BicycleRentalApiSeeder>();
 await seeder.Seed();
+//Culutre
+var supportedCultures = new[] { new CultureInfo("pl-PL") };
+var localizationOptions = new RequestLocalizationOptions
+{
+    DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("pl-PL"),
+    SupportedCultures = supportedCultures,
+    SupportedUICultures = supportedCultures
+};
+
+app.UseRequestLocalization(localizationOptions);
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -58,7 +69,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
+
 
 app.MapControllers();
 

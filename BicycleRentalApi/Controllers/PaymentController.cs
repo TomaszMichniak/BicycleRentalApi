@@ -1,6 +1,6 @@
-﻿using System.Security.Cryptography;
-using System.Text;
+﻿using System.Text;
 using Application.CQRS.Payment.Command.Notify;
+using Application.CQRS.Payment.Command.Refund;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -32,8 +32,15 @@ namespace BicycleRentalApi.Controllers
                 SignatureHeader = signatureHeader
             };
 
-            var result=await _mediator.Send(command);
+            var result = await _mediator.Send(command);
             return result ? Ok() : BadRequest("Invalid signature or data");
+        }
+        [HttpPost("refund")]
+        public async Task<IActionResult> Refund([FromBody] RefundCommand command)
+        {
+
+            await _mediator.Send(command);
+            return Ok();
         }
     }
 }

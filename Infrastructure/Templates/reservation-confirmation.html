@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Potwierdzenie rezerwacji</title>
+  </head>
+  <body
+    style="
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      padding: 40px;
+    "
+  >
+    <div
+      style="
+        max-width: 600px;
+        margin: auto;
+        background-color: #ffffff;
+        border-radius: 10px;
+        padding-bottom: 10px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      "
+    >
+      <div
+        style="
+          background-color: #7fc241;
+          color: white;
+          padding: 10px;
+          text-align: center;
+          border-top-left-radius: 10px;
+          border-top-right-radius: 10px;
+        "
+      >
+        <h1 style="margin: 0">PM eMountainBikes</h1>
+      </div>
+
+      <h1 style="color: #333; margin-top: 20px">Potwierdzenie rezerwacji</h1>
+
+      <p style="font-size: 16px; color: #444; margin: 10px 30px">
+        Dzień dobry, <strong>{{FirstName}}</strong>.
+      </p>
+
+      <p style="font-size: 16px; color: #444; margin: 10px 30px">
+        Dziękujemy za dokonanie rezerwacji. Twoja płatność została pomyślnie
+        zrealizowana.
+      </p>
+
+      <hr style="margin: 30px 0; border: none; border-top: 1px solid #e0e0e0" />
+
+      <h2 style="color: #7fc241; font-size: 18px; margin-bottom: 10px">
+        Szczegóły rezerwacji
+      </h2>
+
+      <table style="margin: auto; font-size: 16px; color: #333">
+          <tr>
+              <td style="padding: 5px 15px; text-align: right; font-weight: bold">
+                  Numer rezerwacji:
+              </td>
+              <td style="padding: 5px 15px">{{ReservationId}}</td>
+          </tr>
+          <tr>
+              <td style="padding: 5px 15px; text-align: right; font-weight: bold">
+                  Data:
+              </td>
+              <td style="padding: 5px 15px">{{StartDate}} - {{EndDate}}</td>
+          </tr>
+          <tr>
+              <td style="padding: 5px 15px; text-align: right; font-weight: bold">
+                  Adres odbioru:
+              </td>
+              <td style="padding: 5px 15px">{{Address}}</td>
+          </tr>
+          <tr>
+              <td style="padding: 5px 15px; text-align: right; font-weight: bold">
+                  Godziny odbioru:
+              </td>
+              <td style="padding: 5px 15px">{{DeliveryHours}}</td>
+          </tr>
+          <tr>
+              <td style="padding: 5px 15px; text-align: right; font-weight: bold">
+                  Przedmiot:
+              </td>
+              <td style="padding: 5px 15px">
+                  <ul style="list-style-type:none">
+                      {{GroupedBicycles}}
+                  </ul>
+              </td>
+          </tr>
+          <tr>
+              <td style="padding: 5px 15px; text-align: right; font-weight: bold">
+                  Kwota:
+              </td>
+              <td style="padding: 5px 15px">{{TotalCount}} zł</td>
+          </tr>
+      </table>
+
+      <div style="margin: 30px 0">
+        <a
+          href="{{ReservationLink}}"
+          style="
+            background-color: #7fc241;
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-size: 16px;
+            display: inline-block;
+          "
+          >Zobacz szczegóły rezerwacji</a
+        >
+      </div>
+
+      <p style="font-size: 14px; color: #555; margin: 0 30px 20px">
+        Jeśli masz pytania, skontaktuj się z nami pod numerem
+        <a href="tel:+48515 551 325" style="color: #7fc241; text-decoration: none"
+          >+48 515 551 325</a
+        >
+        lub napisz na
+        <a
+          href="mailto:support@przyklad.pl"
+          style="color: #7fc241; text-decoration: none"
+          >{{FromEmail}}</a
+        >.
+      </p>
+
+      <p style="margin-top: 40px; font-size: 16px; color: #444">
+        Pozdrawiamy,<br /><strong>PM eMountainBikes</strong>
+      </p>
+
+      <p style="margin-top: 10px">
+        <a
+          href="https://{{Domain}}"
+          style="color: #7fc241; text-decoration: none; font-size: 14px"
+          >{{Domain}}</a
+        >
+      </p>
+
+      <footer style="margin: 30px 0 10px; font-size: 12px; color: #999999">
+        PM eMountainBikes | Nowe Bystre 113, 34-521 | tel: 515 551 325
+      </footer>
+    </div>
+  </body>
+</html>

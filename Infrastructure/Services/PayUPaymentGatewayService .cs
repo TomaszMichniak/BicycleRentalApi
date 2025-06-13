@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using System.Net;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 using Application.CQRS.Payment.Command.Create;
 using Application.DTO.Payment;
 using Domain.Interfaces;
-using Domain.Specification;
 using Microsoft.Extensions.Configuration;
 
 namespace Infrastructure.Services
@@ -78,6 +72,33 @@ namespace Infrastructure.Services
             {
                 var content = await response.Content.ReadAsStringAsync();
                 throw new Exception($"Failed to cancel transaction in PayU: {content}");
+            }
+        }
+
+        public async Task RefundTransactionAsync(string payuOrderId, string description = "Zwrot płatności")
+        {
+            var token = await GetAccessToken();
+            var baseUrl = _configuration["PayU:ApiBaseUrl"];
+            var orderUrl = _configuration["PayU:OrderEndpoint"];
+            var url = $"{baseUrl}{orderUrl}/{payuOrderId}/refunds";
+
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            var refundRequest = new
+            {
+                refund = new
+                {
+                    description = description,
+                }
+            };
+
+            var content = new StringContent(JsonSerializer.Serialize(refundRequest), Encoding.UTF8, "application/json");
+            var response = await _httpClient.PostAsync(url, content);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var error = await response.Content.ReadAsStringAsync();
+                throw new Exception($"Refund failed: {error}");
             }
         }
         private async Task<string> GetAccessToken()

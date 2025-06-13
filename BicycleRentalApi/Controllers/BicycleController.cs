@@ -1,22 +1,20 @@
-﻿using Application.CQRS.Bicycle;
-using Application.CQRS.Bicycle.Command.Create;
+﻿using Application.CQRS.Bicycle.Command.Create;
 using Application.CQRS.Bicycle.Command.Delete;
 using Application.CQRS.Bicycle.Command.Edit;
 using Application.CQRS.Bicycle.Query.AvailableOnDate;
 using Application.CQRS.Bicycle.Query.GetAll;
 using Application.CQRS.Bicycle.Query.GetBySpecification;
-using Application.CQRS.GenericHandlers;
 using Application.Pagination;
-using Domain.Entities;
 using FluentValidation.Results;
 using MediatR;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BicycleRentalApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class BicycleController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -40,6 +38,7 @@ namespace BicycleRentalApi.Controllers
         }
         [HttpGet]
         [Route("GetAvailableByDate")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAvailableOnDate([FromQuery] GetAvailableByDateQuery query)
         {
             var result = await _mediator.Send(query);
@@ -47,7 +46,6 @@ namespace BicycleRentalApi.Controllers
         }
 
         [HttpPost]
-        // [Authorize(Roles ="admin")]
         public async Task<IActionResult> Create([FromBody] CreateBicycleCommand command)
         {
             CreateBicycleCommandValidator _validator = new CreateBicycleCommandValidator();
@@ -60,7 +58,6 @@ namespace BicycleRentalApi.Controllers
             return Ok(data);
         }
         [HttpPut]
-        //[Authorize(Roles ="admin")]
         public async Task<IActionResult> Edit([FromBody] EditBicycleCommand command)
         {
             EditBicycleCommandValidator _validator = new EditBicycleCommandValidator();
@@ -72,7 +69,6 @@ namespace BicycleRentalApi.Controllers
         }
         [HttpDelete]
         [Route("{id}")]
-        // [Authorize(Roles ="admin")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
             await _mediator.Send(new DeleteBicycleCommand(id));

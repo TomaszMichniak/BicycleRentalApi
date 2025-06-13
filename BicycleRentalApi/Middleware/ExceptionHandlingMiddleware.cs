@@ -1,6 +1,6 @@
-﻿using Application.Exceptions;
-using System.Net;
+﻿using System.Net;
 using System.Text.Json;
+using Application.Exceptions;
 
 namespace BicycleRentalApi.Middleware
 {

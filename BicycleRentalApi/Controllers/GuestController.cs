@@ -2,16 +2,16 @@
 using Application.CQRS.Guest.Command.Delete;
 using Application.CQRS.Guest.Command.Edit;
 using Application.CQRS.Guest.Query;
-using Application.CQRS.Reservation.Query.GetBySpecification;
 using FluentValidation.Results;
 using MediatR;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BicycleRentalApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class GuestController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -28,7 +28,6 @@ namespace BicycleRentalApi.Controllers
         }
 
         [HttpPost]
-        // [Authorize(Roles ="admin")]
         public async Task<IActionResult> Create([FromBody] CreateGuestCommand command)
         {
             CreateGuestCommandValidator _validator = new CreateGuestCommandValidator();
@@ -41,7 +40,6 @@ namespace BicycleRentalApi.Controllers
             return Ok(data);
         }
         [HttpPut]
-        //[Authorize(Roles ="admin")]
         public async Task<IActionResult> Edit([FromBody] EditGuestCommand command)
         {
             EditGuestCommandValidator _validator = new EditGuestCommandValidator();
@@ -53,7 +51,6 @@ namespace BicycleRentalApi.Controllers
         }
         [HttpDelete]
         [Route("{id}")]
-        // [Authorize(Roles ="admin")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
             await _mediator.Send(new DeleteGuestCommand(id));

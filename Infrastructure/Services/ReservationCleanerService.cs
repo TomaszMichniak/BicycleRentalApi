@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -32,8 +27,9 @@ namespace Infrastructure.Services
                 .Include(r => r.Payment)
                 .Include(r => r.Address)
                 .Where(r => r.CreatedAt < expirationThreshold
-                && !r.IsConfirmed
-                && (r.Payment.Status == PaymentStatus.Pending || r.Payment.Status == null))
+                    && r.Status != ReservationStatus.Cancelled
+                    && r.Status != ReservationStatus.Confirmed
+                    && (r.Payment.Status == PaymentStatus.Pending || r.Payment.Status == null))
                 .ToListAsync();
 
             foreach (var reservation in expiredReservations)
@@ -44,11 +40,12 @@ namespace Infrastructure.Services
                     {
                         await _addressRepository.DeleteAsync(reservation.Address);
                     }
-                    _dbContext.Reservations.Remove(reservation);
+                    reservation.Status = ReservationStatus.Cancelled;
                 }
                 else if (reservation.Payment.Status == PaymentStatus.Pending)
                 {
                     await _paymentGateway.CancelTransactionAsync(reservation.Payment.PayuOrderId);
+                    reservation.Status = ReservationStatus.Cancelled;
                 }
                 else
                 {
